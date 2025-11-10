@@ -278,17 +278,6 @@ export const obtenerDatosRuc = async (ruc) => {
   } catch (error) {
     console.error('\n❌ Error en obtenerDatosRuc:', error.message);
 
-    await ErrorLogsModel.saveError(
-      'consulta-sri',
-      ruc,
-      'error_general',
-      {
-        mensaje: error.message || 'Error al consultar SRI',
-        stack: error.stack,
-        tipo: error.name || 'Error',
-      }
-    ).catch(err => console.warn('⚠️ Error guardando log:', err.message));
-
     await browser.close();
     return {
       success: false,
@@ -297,10 +286,3 @@ export const obtenerDatosRuc = async (ruc) => {
     };
   }
 };
-
-
-obtenerDatosRuc('1150575338001').then(data => {
-  console.log('\nResultado de la consulta SRI:', data);
-}).catch(err => {
-  console.error('Error en la consulta SRI:', err);
-});
